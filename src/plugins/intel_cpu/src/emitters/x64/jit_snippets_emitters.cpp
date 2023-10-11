@@ -11,6 +11,7 @@
 #include "snippets/lowered/port_connector.hpp"
 #include "transformations/snippets/x64/op/brgemm_copy_b.hpp"
 #include "transformations/snippets/x64/op//brgemm_cpu.hpp"
+#include "libxsmm.h"
 
 using namespace InferenceEngine;
 using namespace Xbyak;
