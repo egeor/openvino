@@ -2,9 +2,8 @@
 # Copyright (C) 2018-2023 Intel Corporation
 # SPDX-License-Identifier: Apache-2.0
 
+import platform
 import logging
-
-from sys import platform
 
 import onnx.backend.test
 from tests import (
@@ -26,6 +25,7 @@ from tests import (
     xfail_issue_38735,
     skip_issue_39658,
     skip_issue_39658,
+    skip_issue_58676,
     xfail_issue_44858,
     xfail_issue_44965,
     xfail_issue_45180,
@@ -34,7 +34,6 @@ from tests import (
     xfail_issue_48052,
     xfail_issue_52463,
     xfail_issue_58033,
-    xfail_issue_58676,
     xfail_issue_63033,
     xfail_issue_63036,
     xfail_issue_63043,
@@ -686,11 +685,21 @@ tests_expected_to_fail = [
     ),
 ]
 
-if platform == 'darwin':
-    tests_expected_to_fail.append((
-        xfail_issue_58676,
-        "OnnxBackendNodeModelTest.test_div_uint8_cpu"
-    ))
+if platform.system() == 'Darwin':
+    tests_expected_to_fail.extend([
+        (
+            skip_issue_58676,
+            "OnnxBackendNodeModelTest.test_mish_expanded_cpu"
+        ),
+        (
+            skip_issue_58676,
+            "OnnxBackendNodeModelTest.test_resize_downsample_scales_linear_cpu"
+        ),
+        (
+            skip_issue_58676,
+            "OnnxBackendNodeModelTest.test_div_uint8_cpu"
+        )]
+    )
 
 for test_group in tests_expected_to_fail:
     for test_case in test_group[1:]:
