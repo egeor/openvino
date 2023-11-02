@@ -195,6 +195,10 @@ std::vector<std::string> disabledTestPatterns() {
         R"(.*smoke_RNNSequenceCommonZeroClip/RNNSequenceTest.Inference.*hidden_size=10.*relu.*)",
         // Issue: 123427
         R"(.*RDFTLayerTest.*SignalSize=().*)",
+        // Issue: 123815 (Tests are sensintive to available thread count on testing machines)
+        R"(.*smoke_Snippets_MHA_.?D_SplitDimensionM.*)",
+        // Issue: 122356
+        R"(.*NmsRotatedOpTest.*(SortDesc=True|Clockwise=False).*)",
     };
 
 #if defined(OPENVINO_ARCH_X86)
